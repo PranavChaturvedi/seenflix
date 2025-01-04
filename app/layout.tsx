@@ -1,3 +1,4 @@
+import { ClerkProvider } from '@clerk/nextjs'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -17,8 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      {/* TODO: Add Clerk authentication provider here */}
-      <body className={`${inter.className} bg-gray-900 text-gray-100`}>{children}</body>
+      <ClerkProvider afterSignOutUrl='/'>
+        <body className={`${inter.className} bg-gray-900 text-gray-100`}>{children}</body>
+      </ClerkProvider>
     </html>
   )
 }

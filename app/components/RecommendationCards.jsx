@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "../../components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card"
 
@@ -28,7 +29,12 @@ export function RecommendationCards() {
             <p>A brief description of the {item.type.toLowerCase()} could go here.</p>
           </CardContent>
           <CardFooter>
-            <Button className="w-full">Add to Watched</Button>
+            <Button 
+              className="w-full"
+              onClick={() => console.log('clicked')}
+            >
+              Add to Watched
+            </Button>
           </CardFooter>
         </Card>
       ))}
