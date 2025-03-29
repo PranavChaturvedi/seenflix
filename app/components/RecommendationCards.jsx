@@ -1,6 +1,7 @@
 "use client"
 import { Button } from "../../components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card"
+import { getToken } from "../common/jwtToken"
 
 
 const recommendations = [
@@ -29,7 +30,7 @@ export function RecommendationCards() {
             <p>A brief description of the {item.type.toLowerCase()} could go here.</p>
           </CardContent>
           <CardFooter>
-            <Button 
+            <Button
               className="w-full"
               onClick={() => console.log('clicked')}
             >
