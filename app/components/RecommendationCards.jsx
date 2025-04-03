@@ -19,7 +19,7 @@ export function RecommendationCards() {
     const token = await getToken(session);
     axiosInstance.post('/add-entry', {
       imdb_id: item.imdb_id,
-      rating: 10,
+      rating: 0,
       status: "planned",
       comment: "",
     }, {
