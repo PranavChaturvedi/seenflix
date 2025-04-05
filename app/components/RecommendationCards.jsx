@@ -31,15 +31,16 @@ export function RecommendationCards() {
     axiosInstance
       .post(
         "/add-entry",
-        {
+        JSON.stringify({
           imdb_id: item.imdb_id,
           rating: 0,
           status: "planned",
           comment: "",
-        },
+        }),
         {
           headers: {
             Authorization: token,
+            "Content-Type": "application/json;charset=utf-8"
           },
         }
       )

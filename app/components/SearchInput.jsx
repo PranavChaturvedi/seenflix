@@ -20,10 +20,10 @@ import { RedirectToSignIn, useSession } from "@clerk/nextjs";
 export function SearchInput() {
   const [contentType, setContentType] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 500); // 500ms debounce
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [redirect,setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const { session } = useSession();
 
   const clearSearch = () => {
@@ -63,26 +63,27 @@ export function SearchInput() {
 
   useEffect(() => {
     searchMedia(debouncedSearchTerm);
-  }, [debouncedSearchTerm, searchMedia]); // Remove contentType from here since it's already in searchMedia's deps
+  }, [debouncedSearchTerm, searchMedia]);
 
   const addEntry = async (item) => {
     const token = await getToken(session);
-    if(!token){
+    if (!token) {
       setRedirect(true);
       return;
     }
     axiosInstance
       .post(
         "/add-entry",
-        {
+        JSON.stringify({
           imdb_id: item.imdb_id,
           rating: 0,
           status: "planned",
           comment: "",
-        },
+        }),
         {
           headers: {
             Authorization: token,
+            "Content-Type": "application/json;charset=utf-8"
           },
         }
       )
@@ -100,8 +101,8 @@ export function SearchInput() {
       });
   };
 
-  if(redirect){
-    return <RedirectToSignIn />
+  if (redirect) {
+    return <RedirectToSignIn />;
   }
 
   return (
