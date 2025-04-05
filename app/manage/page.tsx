@@ -14,7 +14,7 @@ export default function GetStarted() {
         <div className="flex justify-center mb-8">
           <SearchInput />
         </div>
-        <h4 className="text-4xl font-bold text-purple-400 mb-8 text-left ml-5">
+        <h4 className="text-4xl text-center font-bold text-purple-400 mb-8 text-left ml-5">
           Recommendations
         </h4>
         <RecommendationCards />
