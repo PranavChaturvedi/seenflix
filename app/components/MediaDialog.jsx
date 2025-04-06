@@ -24,7 +24,7 @@ import { getToken } from "../common/jwtToken";
 import { axiosInstance } from "../common/axios";
 import { DialogDescription } from "@radix-ui/react-dialog";
 
-export function MediaDialog({ item, open, onOpenChange, type }) {
+export function MediaDialog({ item, open, onOpenChange, type, setReload }) {
   const [rating, setRating] = useState(item?.rating ?? 0);
   const [comment, setComment] = useState(item?.comment ?? "");
   const [status, setStatus] = useState(item?.user_status ?? "planned");
@@ -55,13 +55,13 @@ export function MediaDialog({ item, open, onOpenChange, type }) {
     }
     update();
     onOpenChange(false);
+    setReload((prev) => prev + 1);
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto p-0">
-        <DialogDescription>
-        </DialogDescription>
+        <DialogDescription></DialogDescription>
         <DialogHeader className="sr-only">
           <DialogTitle>{item?.title || "Media"} Details</DialogTitle>
         </DialogHeader>
@@ -190,7 +190,7 @@ export function MediaDialog({ item, open, onOpenChange, type }) {
                           onOpenChange(false);
                           setRating(0);
                           setComment("");
-                          setStatus("planned")
+                          setStatus("planned");
                         }}
                       >
                         Cancel

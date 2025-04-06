@@ -18,6 +18,7 @@ export default function CardView() {
   const [watchlist, setWatchlist] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [reload, setReload] = useState(1);
   const { session } = useSession();
 
   const deleteEntry = async (item) => {
@@ -59,7 +60,7 @@ export default function CardView() {
     }
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session]);
+  }, [session, reload]);
 
   if (!session) {
     return (
@@ -157,6 +158,7 @@ export default function CardView() {
             }
           }}
           type={"watch"}
+          setReload={setReload}
         />
       )}
     </div>
