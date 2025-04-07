@@ -16,6 +16,7 @@ import { useDebounce } from "use-debounce";
 import { getToken } from "../common/jwtToken";
 import { axiosInstance } from "../common/axios";
 import { RedirectToSignIn, useSession } from "@clerk/nextjs";
+import { MediaDialog } from "./MediaDialog";
 
 export function SearchInput() {
   const [contentType, setContentType] = useState("all");
@@ -24,6 +25,8 @@ export function SearchInput() {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
+  const [dialogOpen, setDialogOpen] = useState(false);
   const { session } = useSession();
 
   const clearSearch = () => {
@@ -158,6 +161,10 @@ export function SearchInput() {
                 <div
                   key={item.imdb_id}
                   className="p-3 hover:bg-gray-700 cursor-pointer border-b border-gray-700 last:border-b-0 flex items-center"
+                  onClick={() => {
+                    setSelectedItem(item);
+                    setDialogOpen(true);
+                  }}
                 >
                   {item.poster_path && (
                     <div className="relative h-12 w-8 flex-shrink-0 mr-3">
@@ -204,6 +211,17 @@ export function SearchInput() {
           </CardContent>
         </Card>
       )}
+      <MediaDialog 
+        item={selectedItem}
+        open={dialogOpen}
+        onOpenChange={(open) => {
+          if (!open) {
+            setDialogOpen(false);
+            setSelectedItem(null);
+          }
+        }}
+        type="recs"
+      />
     </div>
   );
 }

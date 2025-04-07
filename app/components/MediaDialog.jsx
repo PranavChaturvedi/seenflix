@@ -93,12 +93,12 @@ export function MediaDialog({ item, open, onOpenChange, type, setReload }) {
                 </Link>
               </div>
               <div className="text-lg text-muted-foreground mt-2">
-                {item.type === "movie" ? "Movie" : "TV Show"} •{" "}
-                {item.release_date} • {item.original_language.toUpperCase()}
+                {item?.type === "movie" ? "Movie" : "TV Show"} •{" "}
+                {item?.release_date} • {item?.original_language?.toUpperCase()}
               </div>
 
               <div className="mt-6 space-y-6">
-                {item.poster_path && (
+                {item?.poster_path && (
                   <div className="relative w-48 h-72 rounded-lg overflow-hidden border">
                     <Image
                       src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
@@ -122,7 +122,7 @@ export function MediaDialog({ item, open, onOpenChange, type, setReload }) {
                   </div>
                 )}
 
-                {item.overview && (
+                {item?.overview && (
                   <div className="space-y-2">
                     <h3 className="text-xl font-semibold">Overview</h3>
                     <p className="text-muted-foreground">{item.overview}</p>
@@ -202,7 +202,7 @@ export function MediaDialog({ item, open, onOpenChange, type, setReload }) {
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="font-semibold">Status:</span> {item.status}
+                    <span className="font-semibold">Status:</span> {item?.status}
                   </div>
                 </div>
               </div>
