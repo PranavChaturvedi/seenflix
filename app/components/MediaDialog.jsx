@@ -48,14 +48,15 @@ export function MediaDialog({ item, open, onOpenChange, type, setReload }) {
             },
           }
         )
-        .then(() => {})
+        .then(() => {
+          onOpenChange(false);
+          setReload((prev) => prev + 1);
+        })
         .catch((error) => {
           console.error(error);
         });
     }
     update();
-    onOpenChange(false);
-    setReload((prev) => prev + 1);
   };
 
   return (
@@ -202,7 +203,8 @@ export function MediaDialog({ item, open, onOpenChange, type, setReload }) {
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="font-semibold">Status:</span> {item?.status}
+                    <span className="font-semibold">Status:</span>{" "}
+                    {item?.status}
                   </div>
                 </div>
               </div>
