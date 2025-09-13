@@ -44,6 +44,7 @@ export function SearchInput() {
       setIsLoading(true);
       try {
         const token = await getToken(session);
+        if (token){
         const response = await axiosInstance.get(`search`, {
           params: {
             title: query,
@@ -54,6 +55,7 @@ export function SearchInput() {
           },
         });
         setSearchResults(response.data);
+        }
       } catch (error) {
         console.error(error);
       } finally {

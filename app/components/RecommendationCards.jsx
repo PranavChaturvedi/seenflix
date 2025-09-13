@@ -19,13 +19,36 @@ export function RecommendationCards() {
   const [recommendations, setRecommnedation] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [redirect, setRedirect] = useState(false);
   const { session } = useSession();
+  useEffect(() => {
+    if (!session) return;
+    async function getData() {
+      if (recommendations.length > 0) return;
+      const token = await getToken(session);
+      axiosInstance
+        .get("/recommendations", {
+          headers: {
+            Authorization: token,
+          },
+        })
+        .then((response) => {
+          setRecommnedation(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
+
+  if (!session) {
+    return <RedirectToSignIn />;
+  }
 
   const addEntry = async (item) => {
     const token = await getToken(session);
     if (!token) {
-      setTimeout(() => setRedirect(true), 0);
       return;
     }
     axiosInstance
@@ -40,7 +63,7 @@ export function RecommendationCards() {
         {
           headers: {
             Authorization: token,
-            "Content-Type": "application/json;charset=utf-8"
+            "Content-Type": "application/json;charset=utf-8",
           },
         }
       )
@@ -59,29 +82,6 @@ export function RecommendationCards() {
       });
   };
 
-  useEffect(() => {
-    async function getData() {
-      const token = await getToken(session);
-      axiosInstance
-        .get("/recommendations", {
-          headers: {
-            Authorization: token,
-          },
-        })
-        .then((response) => {
-          setRecommnedation(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-    getData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (redirect) {
-    return <RedirectToSignIn />;
-  }
   if (recommendations.length == 0) {
     return (
       <h4 className="text-2xl font-bold text-[#40e0d0] mb-8 text-center ml-5">
