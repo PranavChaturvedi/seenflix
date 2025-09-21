@@ -5,37 +5,36 @@ import React from "react";
 
 export function Header({ includeManage = false }: { includeManage?: boolean }) {
   return (
-    <header className="bg-gray-800 text-white p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold">
+    <header className="sticky top-0 z-50 backdrop-blur-[var(--surface-blur)] bg-[var(--surface)] border-b border-white/10">
+      <div className="container mx-auto flex justify-between items-center p-4">
+        <Link
+          href="/"
+          className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--accent1)] to-[var(--accent2)]"
+        >
           SeenFlix
         </Link>
         <SignedIn>
-          <nav>
-            <ul className="flex space-x-4">
-              <li>
-                <Link href="/" className="hover:text-gray-300">
-                  Home
-                </Link>
-              </li>
-              {!includeManage && (
-                <li>
-                  <Link href="/watchlist" className="hover:text-gray-300">
-                    Watchlist
-                  </Link>
-                </li>
-              )}
-              {includeManage && (
-                <li>
-                  <Link href="/manage" className="hover:text-gray-300">
-                    Manage
-                  </Link>
-                </li>
-              )}
-              <li>
-                <UserButton />
-              </li>
-            </ul>
+          <nav className="flex items-center gap-4">
+            <Link href="/" className="hover:text-[var(--accent1)] transition">
+              Home
+            </Link>
+            {!includeManage && (
+              <Link
+                href="/watchlist"
+                className="hover:text-[var(--accent1)] transition"
+              >
+                Watchlist
+              </Link>
+            )}
+            {includeManage && (
+              <Link
+                href="/manage"
+                className="hover:text-[var(--accent1)] transition"
+              >
+                Manage
+              </Link>
+            )}
+            <UserButton />
           </nav>
         </SignedIn>
         <SignedOut>
