@@ -91,20 +91,20 @@ export function RecommendationCards() {
   }
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
         {recommendations.map((item, index) => (
           <Card
             key={index}
             className="hover:shadow-lg transition-shadow h-full flex flex-col"
           >
-            <div className="relative aspect-[2/3] w-full max-h-48 overflow-hidden">
+            <div className="relative w-full h-64 rounded-lg overflow-hidden">
               {item.poster_path ? (
                 <Image
-                  src={`https://image.tmdb.org/t/p/w300${item.poster_path}`} // Using w300 for smaller size
+                  src={`https://image.tmdb.org/t/p/w342${item.poster_path}`}
                   alt={`${item.title} poster`}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
                 />
               ) : (
                 <div className="w-full h-full bg-muted flex items-center justify-center">
